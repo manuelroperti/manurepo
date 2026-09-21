@@ -14,38 +14,38 @@
     body {
       margin: 0;
       min-height: 100vh;
-
       display: flex;
       justify-content: center;
       align-items: center;
-
       padding: 20px;
-
       font-family: Arial, sans-serif;
-
-      background: #f4f4f4;
+      background: #f3f3f3;
       color: #111;
     }
 
+    /* UNA SOLA CARD */
     .card {
       width: 100%;
       max-width: 430px;
-
       padding: 30px;
-
-      background: white;
-
+      background: #ffffff;
       border-radius: 22px;
-
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
     }
 
-    h1 {
-      margin-top: 0;
-      margin-bottom: 25px;
+    /* Ogni schermata occupa la stessa card */
+    .screen {
+      display: none;
+    }
 
+    .screen.active {
+      display: block;
+    }
+
+    h1 {
+      margin: 0 0 25px 0;
       font-size: 28px;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     p {
@@ -55,15 +55,11 @@
 
     input {
       width: 100%;
-
       padding: 15px;
       margin: 8px 0;
-
       border: 1px solid #ccc;
       border-radius: 12px;
-
       font-size: 17px;
-
       outline: none;
     }
 
@@ -73,18 +69,13 @@
 
     button {
       width: 100%;
-
       padding: 15px;
       margin: 8px 0;
-
-      border: 0;
+      border: none;
       border-radius: 12px;
-
       background: #111;
-      color: white;
-
+      color: #fff;
       font-size: 17px;
-
       cursor: pointer;
     }
 
@@ -100,13 +91,8 @@
 
     .back {
       margin-top: 18px;
-
       background: #eeeeee;
       color: #111;
-    }
-
-    .hidden {
-      display: none;
     }
 
     .auguri {
@@ -125,13 +111,17 @@
 
 <body>
 
+  <!-- ========================================= -->
+  <!-- UNICA CARD DELL'APPLICAZIONE              -->
+  <!-- ========================================= -->
+
   <div class="card">
 
-    <!-- ================================= -->
-    <!-- PAGINA INIZIALE                   -->
-    <!-- ================================= -->
+    <!-- ========================================= -->
+    <!-- HOME                                      -->
+    <!-- ========================================= -->
 
-    <section id="home">
+    <div id="home" class="screen active">
 
       <h1>Cosa scegli?</h1>
 
@@ -143,14 +133,14 @@
         Piramide d'Egitto
       </button>
 
-    </section>
+    </div>
 
 
-    <!-- ================================= -->
-    <!-- GRIGLIA LONGA - DOMANDA 1         -->
-    <!-- ================================= -->
+    <!-- ========================================= -->
+    <!-- GRIGLIA LONGA - DOMANDA 1                 -->
+    <!-- ========================================= -->
 
-    <section id="griglia" class="hidden">
+    <div id="griglia" class="screen">
 
       <h1>Le punto sono machine chi:</h1>
 
@@ -162,20 +152,18 @@
         Non toccano
       </button>
 
-      <button
-        class="back"
-        onclick="showScreen('home')">
+      <button class="back" onclick="showScreen('home')">
         Indietro
       </button>
 
-    </section>
+    </div>
 
 
-    <!-- ================================= -->
-    <!-- GRIGLIA LONGA - DOMANDA 2         -->
-    <!-- ================================= -->
+    <!-- ========================================= -->
+    <!-- GRIGLIA LONGA - DOMANDA 2                 -->
+    <!-- ========================================= -->
 
-    <section id="griglia2" class="hidden">
+    <div id="griglia2" class="screen">
 
       <p>
         Non lo so, chiedi a Piero.
@@ -195,24 +183,22 @@
 
       <!-- GIUSTA PORTA AGLI AUGURI -->
 
-      <button onclick="showScreen('fine')">
+      <button onclick="showScreen('auguri')">
         3. Giusta
       </button>
 
-      <button
-        class="back"
-        onclick="showScreen('griglia')">
+      <button class="back" onclick="showScreen('griglia')">
         Indietro
       </button>
 
-    </section>
+    </div>
 
 
-    <!-- ================================= -->
-    <!-- PIRAMIDE D'EGITTO - DOMANDA 1     -->
-    <!-- ================================= -->
+    <!-- ========================================= -->
+    <!-- PIRAMIDE D'EGITTO - DOMANDA 1             -->
+    <!-- ========================================= -->
 
-    <section id="piramide" class="hidden">
+    <div id="piramide" class="screen">
 
       <h1>Cosa voli?</h1>
 
@@ -226,20 +212,18 @@
         Continua
       </button>
 
-      <button
-        class="back"
-        onclick="showScreen('home')">
+      <button class="back" onclick="showScreen('home')">
         Indietro
       </button>
 
-    </section>
+    </div>
 
 
-    <!-- ================================= -->
-    <!-- PIRAMIDE - DOMANDA 2              -->
-    <!-- ================================= -->
+    <!-- ========================================= -->
+    <!-- PIRAMIDE D'EGITTO - DOMANDA 2             -->
+    <!-- ========================================= -->
 
-    <section id="bissa" class="hidden">
+    <div id="bissa" class="screen">
 
       <h1>Como bissa?</h1>
 
@@ -267,271 +251,19 @@
         Bissa salame
       </button>
 
-      <button
-        class="back"
-        onclick="showScreen('piramide')">
-        Indietro
-      </button>
-
-    </section>
-
-
-    <!-- ================================= -->
-    <!-- PIRAMIDE - DOMANDA 3              -->
-    <!-- ================================= -->
-
-    <section id="salame" class="hidden">
-
-      <h1>Salame come?</h1>
-
-      <input
-        id="salameInput"
-        type="text"
-        placeholder="Scrivi qui..."
-      >
-
-      <button onclick="controllaSalame()">
-        Continua
-      </button>
-
-      <button
-        class="back"
-        onclick="showScreen('bissa')">
-        Indietro
-      </button>
-
-    </section>
-
-
-    <!-- ================================= -->
-    <!-- PAGINA FINALE DEGLI AUGURI       -->
-    <!-- ================================= -->
-
-    <section id="fine" class="hidden auguri">
-
-      <h1>
-        🎉 Buon compleanno! 🎂
-      </h1>
-
-      <p>
-        Tantissimi auguri di buon compleanno! 🥳
-      </p>
-
-      <p>
-        Brava, non hai vinto un cazzo ma almeno
-        spero ti sia divertita. Ciao😘
-      </p>
-
-    </section>
-
-  </div>
-
-
-  <!-- ================================= -->
-  <!-- JAVASCRIPT                        -->
-  <!-- ================================= -->
-
-  <script>
-
-    /*
-     * Mostra una schermata
-     * e nasconde tutte le altre.
-     */
-
-    function showScreen(screenId) {
-
-      const screens = document.querySelectorAll("section");
-
-      screens.forEach(function(screen) {
-
-        screen.classList.add("hidden");
-
-      });
-
-      document
-        .getElementById(screenId)
-        .classList.remove("hidden");
-
-    }
-
-
-    /*
-     * Controlla "Cosa voli?"
-     *
-     * La parola "bissa" può essere scritta
-     * con maiuscole o minuscole.
-     *
-     * Esempi validi:
-     *
-     * bissa
-     * BISSA
-     * Bissa
-     * voglio bissa
-     * Bissa qualcosa
-     */
-
-    function controllaVoli() {
-
-      const testo = document
-        .getElementById("voliInput")
-        .value
-        .toLowerCase();
-
-      if (testo.includes("bissa")) {
-
-        showScreen("bissa");
-
-      }
-
-    }
-
-
-    /*
-     * Controlla "Salame come?"
-     *
-     * È sufficiente che il testo contenga:
-     *
-     * biccante
-     *
-     * oppure
-     *
-     * fettinderi
-     *
-     * oppure entrambe.
-     */
-
-    function controllaSalame() {
-
-      const testo = document
-        .getElementById("salameInput")
-        .value
-        .toLowerCase();
-
-      if (
-        testo.includes("biccante") ||
-        testo.includes("fettinderi")
-      ) {
-
-        showScreen("fine");
-
-      }
-
-    }
-
-  </script>
-
-</body>
-</html>  </style>
-</head>
-
-<body>
-
-  <div class="card">
-
-    <!-- HOME -->
-    <section id="home">
-      <h1>Cosa scegli?</h1>
-
-      <button onclick="showScreen('griglia')">
-        Griglia longa
-      </button>
-
-      <button onclick="showScreen('piramide')">
-        Piramide d'Egitto
-      </button>
-    </section>
-
-
-    <!-- GRIGLIA LONGA - SCHERMATA 1 -->
-    <section id="griglia" class="hidden">
-      <h1>Le punto sono machine chi:</h1>
-
-      <button onclick="showScreen('griglia2')">
-        Toccano
-      </button>
-
-      <button onclick="showScreen('griglia2')">
-        Non toccano
-      </button>
-
-      <button class="back" onclick="showScreen('home')">
-        Indietro
-      </button>
-    </section>
-
-
-    <!-- GRIGLIA LONGA - SCHERMATA 2 -->
-    <section id="griglia2" class="hidden">
-      <p>Non lo so, chiedi a Piero.</p>
-
-      <p>Comunque la tua macchina è:</p>
-
-      <button>
-        1. Alta
-      </button>
-
-      <button>
-        2. Bascia
-      </button>
-
-      <button>
-        3. Giusta
-      </button>
-
-      <button class="back" onclick="showScreen('griglia')">
-        Indietro
-      </button>
-    </section>
-
-
-    <!-- PIRAMIDE D'EGITTO - SCHERMATA 1 -->
-    <section id="piramide" class="hidden">
-      <h1>Cosa voli?</h1>
-
-      <input
-        id="voliInput"
-        type="text"
-        placeholder="Scrivi qui..."
-      >
-
-      <button onclick="controllaVoli()">
-        Continua
-      </button>
-
-      <button class="back" onclick="showScreen('home')">
-        Indietro
-      </button>
-    </section>
-
-
-    <!-- PIRAMIDE D'EGITTO - SCHERMATA 2 -->
-    <section id="bissa" class="hidden">
-      <h1>Como bissa?</h1>
-
-      <button disabled>
-        Bissa tutto
-      </button>
-
-      <button disabled>
-        Bissa bisci
-      </button>
-
-      <button disabled>
-        Bissa bollub
-      </button>
-
-      <button onclick="showScreen('salame')">
-        Bissa salame
-      </button>
-
       <button class="back" onclick="showScreen('piramide')">
         Indietro
       </button>
-    </section>
+
+    </div>
 
 
-    <!-- PIRAMIDE D'EGITTO - SCHERMATA 3 -->
-    <section id="salame" class="hidden">
+    <!-- ========================================= -->
+    <!-- PIRAMIDE D'EGITTO - DOMANDA 3             -->
+    <!-- ========================================= -->
+
+    <div id="salame" class="screen">
+
       <h1>Salame come?</h1>
 
       <input
@@ -547,38 +279,130 @@
       <button class="back" onclick="showScreen('bissa')">
         Indietro
       </button>
-    </section>
+
+    </div>
 
 
-    <!-- PAGINA FINALE -->
-    <section id="fine" class="hidden">
-      <h1>ok</h1>
-    </section>
+    <!-- ========================================= -->
+    <!-- PAGINA FINALE                             -->
+    <!-- ========================================= -->
+
+    <div id="auguri" class="screen auguri">
+
+      <h1>
+        🎉 Buon compleanno! 🎂
+      </h1>
+
+      <p>
+        Tantissimi auguri di buon compleanno! 🥳
+      </p>
+
+      <p>
+        Brava non hai vinto un cazzo ma spero 
+        ti sia divertita😘
+      </p>
+
+    </div>
 
   </div>
 
 
   <script>
 
-    // Cambia schermata
+    /* ==========================================
+       CAMBIO SCHERMATA
+       ========================================== */
+
     function showScreen(screenId) {
 
-      const screens = document.querySelectorAll("section");
+      // Nasconde tutte le schermate
+      const screens = document.querySelectorAll(".screen");
 
       screens.forEach(function(screen) {
-        screen.classList.add("hidden");
+        screen.classList.remove("active");
       });
 
-      document
-        .getElementById(screenId)
-        .classList.remove("hidden");
+      // Mostra solamente quella richiesta
+      const screen = document.getElementById(screenId);
+
+      if (screen) {
+        screen.classList.add("active");
+      }
     }
 
 
-    // Controlla la risposta a "Cosa voli?"
+    /* ==========================================
+       CONTROLLO "COSA VOLI?"
+       ========================================== */
+
     function controllaVoli() {
 
-      const testo = document
+      const input = document.getElementById("voliInput");
+
+      const testo = input.value.toLowerCase();
+
+      /*
+       * "bissa" funziona con:
+       *
+       * bissa
+       * BISSA
+       * Bissa
+       * voglio bissa
+       * bissa qualcosa
+       */
+
+      if (testo.includes("bissa")) {
+
+        showScreen("bissa");
+
+      } else {
+
+        // Rimane sulla stessa schermata
+        input.focus();
+
+      }
+    }
+
+
+    /* ==========================================
+       CONTROLLO "SALAME COME?"
+       ========================================== */
+
+    function controllaSalame() {
+
+      const input = document.getElementById("salameInput");
+
+      const testo = input.value.toLowerCase();
+
+      /*
+       * Basta che il testo contenga:
+       *
+       * biccante
+       *
+       * oppure:
+       *
+       * fettinderi
+       */
+
+      if (
+        testo.includes("biccante") ||
+        testo.includes("fettinderi")
+      ) {
+
+        showScreen("auguri");
+
+      } else {
+
+        // Rimane sulla stessa schermata
+        input.focus();
+
+      }
+    }
+
+  </script>
+
+</body>
+</html>to = document
         .getElementById("voliInput")
         .value
         .toLowerCase();
