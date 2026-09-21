@@ -23,7 +23,6 @@
       color: #111;
     }
 
-    /* UNA SOLA CARD */
     .card {
       width: 100%;
       max-width: 430px;
@@ -33,7 +32,183 @@
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
     }
 
-    /* Ogni schermata occupa la stessa card */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    h1 {
+      margin: 0 0 25px 0;
+      font-size: 28px;
+      line-height: 1.25;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 17px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #111;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 12px;
+      background: #111;
+      color: #fff;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    button:disabled {
+      background: #ccc;
+      color: #777;
+      cursor: not-allowed;
+    }
+
+    .back {
+      margin-top: 18px;
+      background: #eeeeee;
+      color: #111;
+    }
+
+    .auguri {
+      text-align: center;
+    }
+
+    .auguri h1 {
+      font-size: 32px;
+    }
+
+    .auguri p {
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- HOME -->
+    <div id="home" class="screen active">
+      <h1>Cosa scegli?</h1>
+      <button type="button" onclick="showScreen('griglia')">Griglia longa</button>
+      <button type="button" onclick="showScreen('piramide')">Piramide d'Egitto</button>
+    </div>
+
+    <!-- GRIGLIA LONGA - DOMANDA 1 -->
+    <div id="griglia" class="screen">
+      <h1>Le punto sono machine chi:</h1>
+      <button type="button" onclick="showScreen('griglia2')">Toccano</button>
+      <button type="button" onclick="showScreen('griglia2')">Non toccano</button>
+      <button type="button" class="back" onclick="showScreen('home')">Indietro</button>
+    </div>
+
+    <!-- GRIGLIA LONGA - DOMANDA 2 -->
+    <div id="griglia2" class="screen">
+      <p>Non lo so, chiedi a Piero.</p>
+      <p>Comunque la tua macchina è:</p>
+      <button type="button">1. Alta</button>
+      <button type="button">2. Bascia</button>
+      <button type="button" onclick="showScreen('auguri')">3. Giusta</button>
+      <button type="button" class="back" onclick="showScreen('griglia')">Indietro</button>
+    </div>
+
+    <!-- PIRAMIDE D'EGITTO - DOMANDA 1 -->
+    <div id="piramide" class="screen">
+      <h1>Cosa voli?</h1>
+      <input id="voliInput" type="text" placeholder="Scrivi qui..." aria-label="Cosa voli">
+      <button type="button" onclick="controllaVoli()">Continua</button>
+      <button type="button" class="back" onclick="showScreen('home')">Indietro</button>
+    </div>
+
+    <!-- PIRAMIDE D'EGITTO - DOMANDA 2 -->
+    <div id="bissa" class="screen">
+      <h1>Como bissa?</h1>
+      <button type="button" disabled>Bissa tutto</button>
+      <button type="button" disabled>Bissa bisci</button>
+      <button type="button" disabled>Bissa bollub</button>
+      <button type="button" onclick="showScreen('salame')">Bissa salame</button>
+      <button type="button" class="back" onclick="showScreen('piramide')">Indietro</button>
+    </div>
+
+    <!-- PIRAMIDE D'EGITTO - DOMANDA 3 -->
+    <div id="salame" class="screen">
+      <h1>Salame come?</h1>
+      <input id="salameInput" type="text" placeholder="Scrivi qui..." aria-label="Salame come">
+      <button type="button" onclick="controllaSalame()">Continua</button>
+      <button type="button" class="back" onclick="showScreen('bissa')">Indietro</button>
+    </div>
+
+    <!-- PAGINA FINALE -->
+    <div id="auguri" class="screen auguri">
+      <h1>🎉 Buon compleanno! 🎂</h1>
+      <p>Tantissimi auguri di buon compleanno! 🥳</p>
+      <p>Ti auguro una giornata piena di sorrisi, sorprese e cose belle! 🎈</p>
+    </div>
+
+  </div>
+
+  <script>
+    function showScreen(screenId) {
+      const screens = document.querySelectorAll(".screen");
+      screens.forEach(function(screen) {
+        screen.classList.remove("active");
+      });
+
+      const screen = document.getElementById(screenId);
+      if (screen) {
+        screen.classList.add("active");
+      }
+    }
+
+    function controllaVoli() {
+      const input = document.getElementById("voliInput");
+      const testo = input.value.toLowerCase();
+
+      if (testo.includes("bissa")) {
+        showScreen("bissa");
+      } else {
+        input.focus();
+      }
+    }
+
+    function controllaSalame() {
+      const input = document.getElementById("salameInput");
+      const testo = input.value.toLowerCase();
+
+      if (testo.includes("biccante") || testo.includes("fettinderi")) {
+        showScreen("auguri");
+      } else {
+        input.focus();
+      }
+    }
+  </script>
+
+</body>
+</html>
     .screen {
       display: none;
     }
