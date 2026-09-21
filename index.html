@@ -1,1 +1,286 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generatore di auguri</title><style>body{font-family:system-ui,sans-serif;max-width:620px;margin:auto;padding:24px;background:#faf7ff;color:#222}.card{background:#fff;padding:24px;border-radius:22px;box-shadow:0 8px 30px #0001}input,textarea{width:100%;box-sizing:border-box;padding:12px;margin:7px 0 16px;border:1px solid #ddd;border-radius:12px;font-size:16px}button{border:0;border-radius:12px;padding:13px 18px;font-size:16px;cursor:pointer;background:#6d4aff;color:#fff}#result{margin-top:18px;padding:15px;border-radius:14px;background:#f1edff;display:none;word-break:break-all}a{color:#5738d6}</style></head><body><div class="card"><h1>🎁 Generatore di auguri</h1><p>Crea una pagina interattiva e condividi il link.</p><label>Nome</label><input id="name" value="Manuel"><label>Messaggio</label><textarea id="msg" rows="5">Tantissimi auguri! 🎉 Ti auguro una giornata piena di sorrisi, sorprese e cose belle!</textarea><button onclick="generate()">Crea il link</button><div id="result"></div></div><script>function generate(){const n=document.getElementById('name').value.trim()||'Te',m=document.getElementById('msg').value.trim()||'Tantissimi auguri! 🎉';const data=btoa(unescape(encodeURIComponent(JSON.stringify({n,m}))));const url=location.origin+location.pathname.replace(/[^/]*$/,'')+'auguri.html?d='+encodeURIComponent(data);document.getElementById('result').style.display='block';document.getElementById('result').innerHTML='<b>Il tuo link:</b><br><a href="'+url+'">'+url+'</a><br><br><button onclick="navigator.clipboard?.writeText('+JSON.stringify(url)+')">Copia link</button>';}</script></body></html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosa scegli?</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #111;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      padding: 30px;
+      background: white;
+      border-radius: 22px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 17px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #111;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin: 8px 0;
+      border: 0;
+      border-radius: 12px;
+      background: #111;
+      color: white;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    button:disabled {
+      background: #ccc;
+      color: #777;
+      cursor: not-allowed;
+    }
+
+    .back {
+      background: #eeeeee;
+      color: #111;
+      margin-top: 18px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- HOME -->
+    <section id="home">
+      <h1>Cosa scegli?</h1>
+
+      <button onclick="showScreen('griglia')">
+        Griglia longa
+      </button>
+
+      <button onclick="showScreen('piramide')">
+        Piramide d'Egitto
+      </button>
+    </section>
+
+
+    <!-- GRIGLIA LONGA - SCHERMATA 1 -->
+    <section id="griglia" class="hidden">
+      <h1>Le punto sono machine chi:</h1>
+
+      <button onclick="showScreen('griglia2')">
+        Toccano
+      </button>
+
+      <button onclick="showScreen('griglia2')">
+        Non toccano
+      </button>
+
+      <button class="back" onclick="showScreen('home')">
+        Indietro
+      </button>
+    </section>
+
+
+    <!-- GRIGLIA LONGA - SCHERMATA 2 -->
+    <section id="griglia2" class="hidden">
+      <p>Non lo so, chiedi a Piero.</p>
+
+      <p>Comunque la tua macchina è:</p>
+
+      <button>
+        1. Alta
+      </button>
+
+      <button>
+        2. Bascia
+      </button>
+
+      <button>
+        3. Giusta
+      </button>
+
+      <button class="back" onclick="showScreen('griglia')">
+        Indietro
+      </button>
+    </section>
+
+
+    <!-- PIRAMIDE D'EGITTO - SCHERMATA 1 -->
+    <section id="piramide" class="hidden">
+      <h1>Cosa voli?</h1>
+
+      <input
+        id="voliInput"
+        type="text"
+        placeholder="Scrivi qui..."
+      >
+
+      <button onclick="controllaVoli()">
+        Continua
+      </button>
+
+      <button class="back" onclick="showScreen('home')">
+        Indietro
+      </button>
+    </section>
+
+
+    <!-- PIRAMIDE D'EGITTO - SCHERMATA 2 -->
+    <section id="bissa" class="hidden">
+      <h1>Como bissa?</h1>
+
+      <button disabled>
+        Bissa tutto
+      </button>
+
+      <button disabled>
+        Bissa bisci
+      </button>
+
+      <button disabled>
+        Bissa bollub
+      </button>
+
+      <button onclick="showScreen('salame')">
+        Bissa salame
+      </button>
+
+      <button class="back" onclick="showScreen('piramide')">
+        Indietro
+      </button>
+    </section>
+
+
+    <!-- PIRAMIDE D'EGITTO - SCHERMATA 3 -->
+    <section id="salame" class="hidden">
+      <h1>Salame come?</h1>
+
+      <input
+        id="salameInput"
+        type="text"
+        placeholder="Scrivi qui..."
+      >
+
+      <button onclick="controllaSalame()">
+        Continua
+      </button>
+
+      <button class="back" onclick="showScreen('bissa')">
+        Indietro
+      </button>
+    </section>
+
+
+    <!-- PAGINA FINALE -->
+    <section id="fine" class="hidden">
+      <h1>ok</h1>
+    </section>
+
+  </div>
+
+
+  <script>
+
+    // Cambia schermata
+    function showScreen(screenId) {
+
+      const screens = document.querySelectorAll("section");
+
+      screens.forEach(function(screen) {
+        screen.classList.add("hidden");
+      });
+
+      document
+        .getElementById(screenId)
+        .classList.remove("hidden");
+    }
+
+
+    // Controlla la risposta a "Cosa voli?"
+    function controllaVoli() {
+
+      const testo = document
+        .getElementById("voliInput")
+        .value
+        .toLowerCase();
+
+      // "bissa" funziona indipendentemente
+      // da maiuscole e minuscole
+      if (testo.includes("bissa")) {
+
+        showScreen("bissa");
+
+      }
+    }
+
+
+    // Controlla la risposta a "Salame come?"
+    function controllaSalame() {
+
+      const testo = document
+        .getElementById("salameInput")
+        .value
+        .toLowerCase();
+
+      // Basta che il testo contenga
+      // una delle due parole
+      if (
+        testo.includes("biccante") ||
+        testo.includes("fettinderi")
+      ) {
+
+        showScreen("fine");
+
+      }
+    }
+
+  </script>
+
+</body>
+</html>
